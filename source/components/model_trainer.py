@@ -7,11 +7,13 @@ from source.logger import logging
 from source.exception import custom 
 from sklearn.model_selection import train_test_split
 from source.utils import Evluate_models
+from source.utils import save_object
 
 
-@dataclass
+
 class Model_trainer_config:
-    Model_trainer_file_path = os.path.join("artifact","Model_trainer_path.pkl")
+    def __init__(self):
+        self.Model_trainer_file_path = os.path.join("artifact","Model.pkl")
 
 class Model_trainer:
 
@@ -34,7 +36,14 @@ class Model_trainer:
             }
 
             Model_Report = Evluate_models(X_Train=X_train, Y_Test=Y_test, Y_Train=Y_train,X_Test= X_test, models=Models)
-            logging.info("Returning thr model report")
+            logging.info("Returning the model report")
+
+            save_object(
+                self.model_trainer_config.Model_trainer_file_path,
+                Model_Report
+
+
+            )
             return Model_Report
             
         except Exception as e:
