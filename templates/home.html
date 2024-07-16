@@ -1,0 +1,102 @@
+<html>
+    <body>
+        <div class = "login">
+            <h1>Insurance Premium Indicator</h1>
+            <form action="{{url_for('predict_datapoint')}}" method="post">
+            <h1>
+                <legend>Insurance Premium Prediction</legend>
+            </h1>
+            <div class="mb-3">
+                <label class="form-label">Age</label>
+                <input class="form-control" type="number" name="age" placeholder="Enter Your age" min="0" max="100" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">SEX</label>
+                <select class="form-control" name="sex" placeholder="Enter Your sex" required >
+                    <option class="placeholder" selected disabled value="">Select your Gender</option>
+                    <option value="male">
+                        Male
+                    </option>
+                    <option value="female">
+                        Female
+                    </option>
+                </select>
+
+            </div>
+            <div>
+                <div class="mb-3">
+                    <label class="form-label">BMI</label>
+                    <input class="form-control" type="float" name="bmi" placeholder="Enter Your BMI" min="0" max="100" required />
+                </div>
+            </div>
+            <div>
+                <div class = "mb-3">
+                    <label class="form-label">Children</label>
+                    <select class="form-control" name="children" placeholder = "Enter no. of children" required>
+                        <option value="0">
+                            0
+                        </option>
+                        <option value="1">
+                            1
+                        </option>
+                        <option value="2">
+                            2
+                        </option>
+                        <option value="3">
+                            3
+                        </option>
+                        <option value="4">
+                            4
+                        </option>
+                        <option value="5">
+                            5
+                        </option>
+                    </select>
+
+                </div>
+            </div>
+            <div>
+                <div class="mb-3">
+                    <label class="form-label">Smoker</label>
+                    <select class="form-control" name="smoker" placeholder="Smoke or Not" required>
+                        <option value="yes">
+                            yes
+                        </option>
+                        <option value="no">
+                            no
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <div class = "mb-3">
+                    <label class="form-label">Region</label>
+                    <select class="form-control" name="region" placeholder = "Enter the region" required>
+                        <option value="southwest">
+                            southwest
+                        </option>
+                        <option value="southeast">
+                            southeast
+                        </option>
+                        <option value="northwest">
+                            northwest
+                        </option>
+                        <option value="norteast">
+                            norteast
+                        </option>
+                        
+                    </select>
+
+                </div>
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-primary" type="submit" value="Predict your Premium" required />
+            </div>
+        </form>
+        <h2>The Prediction is {{results}}
+
+        </h2>
+    
+        </div>
+    </body>
+</html>

@@ -31,27 +31,25 @@ class Data_transformation:
 
             Numerical_column = [
                 "age",
-                "bmi"
+                "bmi",
+                "children"
                 ]
             
             Categorical_feature = [
                 "sex",
                 "smoker",
-                "region",
-                "children"
+                "region"
             ]
             num_pipeline = Pipeline(
                 steps=[
-                    ("imputer",SimpleImputer(strategy="median")),
-                    ("scaler",StandardScaler())
+                    ("scaler",StandardScaler(with_mean=False))
                     
                     ]
                 
             )
             cat_pipeline = Pipeline(
                 steps=[
-                    ("imputer",SimpleImputer(strategy="most_frequent")),
-                    ("onehotencoder",OneHotEncoder()),
+                    ("onehotencoder",OneHotEncoder(handle_unknown="ignore")),
                     ("scaler",StandardScaler(with_mean=False))
                 ]
 
@@ -127,5 +125,4 @@ class Data_transformation:
         except Exception as e:
             raise custom(e,sys)
         
-            
             

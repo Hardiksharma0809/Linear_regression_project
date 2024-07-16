@@ -8,12 +8,13 @@ from source.exception import custom
 from sklearn.model_selection import train_test_split
 from source.utils import Evluate_models
 from source.utils import save_object
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.tree import DecisionTreeRegressor
 
 
-
+@dataclass
 class Model_trainer_config:
-    def __init__(self):
-        self.Model_trainer_file_path = os.path.join("artifact","Model.pkl")
+        Model_trainer_file_path = os.path.join("artifact","Model.pkl")
 
 class Model_trainer:
 
@@ -32,19 +33,29 @@ class Model_trainer:
             )
 
             Models = {
-                "Linear Regression":LinearRegression()
+                "DecisionTree":DecisionTreeRegressor()
             }
 
-            Model_Report = Evluate_models(X_Train=X_train, Y_Test=Y_test, Y_Train=Y_train,X_Test= X_test, models=Models)
-            logging.info("Returning the model report")
+            Model_Report:dict = Evluate_models(X_Train=X_train, Y_Test=Y_test, Y_Train=Y_train,X_Test= X_test, models=Models)
+            logging.info("Returning thr model report")
+            best_model_score = max(sorted(Model_Report.values()))
+
+            best_model_name = list(Model_Report.keys())[
+                list(Model_Report.values()).index(best_model_score)
+            ]
+            best_model = Models[best_model_name]
+            
 
             save_object(
-                self.model_trainer_config.Model_trainer_file_path,
-                Model_Report
+                file_path=self.model_trainer_config.Model_trainer_file_path,
+                obj=best_model
 
 
             )
-            return Model_Report
+            print(type(best_model))
+            predict = best_model.predict(X_test)
+            r2_square = r2_score(Y_test, predict)
+            return r2_square
             
         except Exception as e:
             raise custom(e,sys)
